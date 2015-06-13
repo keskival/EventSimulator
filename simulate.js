@@ -77,4 +77,4 @@ sortedEvents.sort(function(ev1, ev2) {
 });
 
 console.log(JSON.stringify(sortedEvents));
-// TODO: NetCDF output
+// TODO: NetCDF output for CURRENNT
