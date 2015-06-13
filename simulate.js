@@ -69,3 +69,12 @@ time_now = 0;
 while (time_now <= RUNNING_TIME) {
 	time_now = nextEventFrameB(time_now);
 }
+
+// Joining together.
+var sortedEvents = eventsA.concat(eventsB);
+sortedEvents.sort(function(ev1, ev2) {
+	return ev1.time - ev2.time;
+});
+
+console.log(JSON.stringify(sortedEvents));
+// TODO: NetCDF output
