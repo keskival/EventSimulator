@@ -150,10 +150,10 @@ rootgrp.createDimension("numLabels", numLabels)
 # variables:
 #    int targetClasses(numTimesteps) = Target classes (one for each timestep)
 
-seqTagsVar = rootgrp.createVariable("seqTags", dtype("S1").char,
+seqTagsVar = rootgrp.createVariable("seqTags", dtype("c").char,
     ("numSeqs", "maxSeqTagLength"))
 
-seqTagsVar[0] = n.array("a")
+seqTagsVar[0] = n.array(['a'])
 
 seqLengths = [numTimesteps]
 seqLengthsVar = rootgrp.createVariable("seqLengths", dtype("int").char, ("numSeqs"))
