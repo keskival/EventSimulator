@@ -40,16 +40,22 @@ eventsB = []
 
 def nextEventFrameA(time_now):
     # FRAME_A_IN -> GATE -> ASSEMBLE_A -> PRODUCT_A_OUT
-    delay = 2000 + random.randint(0,100)
+    delay = random.randint(0,100)
     time_now = time_now + delay
     eventsA.append(dict(
         event = "FRAME_A_IN",
         time = time_now
     ))
-    delay = 1300 + random.randint(0,100)
+    delay = 2000 + random.randint(0,100)
     time_now = time_now + delay
     eventsA.append(dict(
         event = "GATE",
+        time = time_now
+    ))
+    delay = 1300 + random.randint(0,100)
+    time_now = time_now + delay
+    eventsA.append(dict(
+        event = "ASSEMBLE_A",
         time = time_now
     ))
     delay = 3200 + random.randint(0,100)
@@ -62,16 +68,22 @@ def nextEventFrameA(time_now):
 
 def nextEventFrameB(time_now):
     # FRAME_B_IN ->(1.5s) GATE ->(0.9s) ASSEMBLE_B ->(3.4s) PRODUCT_B_OUT
-    delay = 1500 + random.randint(0,100)
+    delay = random.randint(0,100)
     time_now = time_now + delay
     eventsB.append(dict(
         event = "FRAME_B_IN",
         time = time_now
     ))
-    delay = 900 + random.randint(0,100)
+    delay = 1500 + random.randint(0,100)
     time_now = time_now + delay
     eventsB.append(dict(
         event = "GATE",
+        time = time_now
+    ))
+    delay = 900 + random.randint(0,100)
+    time_now = time_now + delay
+    eventsA.append(dict(
+        event = "ASSEMBLE_B",
         time = time_now
     ))
     delay = 3400 + random.randint(0,100)
@@ -100,8 +112,6 @@ while (time_now <= RUNNING_TIME):
 sortedEvents = eventsA + eventsB
 
 sortedEvents = sorted(sortedEvents, key=lambda e: e['time'])
-
-print sortedEvents
 
 rootgrp = Dataset("test.nc", "w", format="NETCDF4")
 
@@ -168,6 +178,8 @@ targetClasses = []
 for event in outputEvents:
     targetClasses.append(eventIds[event["event"]])
 
+targetClassesVar = rootgrp.createVariable("targetClasses", dtype("int").char, ("numTimesteps"))
+targetClassesVar[:] = n.array(targetClasses)
+
 rootgrp.close()
 
-# TODO: NetCDF output for CURRENNT
