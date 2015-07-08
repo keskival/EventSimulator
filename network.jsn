@@ -6,20 +6,14 @@
             "type": "input"
         },
         {
-            "size": 10,
+            "size": 2,
             "name": "blstm_level_0",
             "bias": 1.0,
             "type": "blstm"
         },
         {
-            "size": 10,
+            "size": 2,
             "name": "blstm_level_1",
-            "bias": 1.0,
-            "type": "blstm"
-        },
-        {
-            "size": 10,
-            "name": "blstm_level_2",
             "bias": 1.0,
             "type": "blstm"
         },
