@@ -1,0 +1,9 @@
+simulate.py runs a factory simulation and outputs the input data for CURRENNT
+application in netCDF4 format to test.nc.
+
+config.cfg configures the network to be trained.
+
+validation.nc and train.nc are similar files to test.nc, but created independently
+with the same simulate.py script.
+
+run.sh runs the network training and outputs trained_network.jsn.
