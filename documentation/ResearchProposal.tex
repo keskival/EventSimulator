@@ -28,8 +28,12 @@ Modern flexible manufacturing and assembly sites are very heterogeneous and diff
 for one site might be considered anomalous for another. However, there are some general characteristics that are common for all sites with approximately similar
 production processes, especially for distinct components of the system.
 
-Forming a rule-based anomaly detection manually can be very cumbersome, because of the complexity of the system. There is a limit on the complexity of such a rule set because
-it needs to be maintained and updated. For this reason, manually defined heuristic rulesets for anomaly detection tend to be lax in their formulation which limits their usefulness.
+A commonly used approach for anomaly detection is forming a heuristic rule set for defining the normal operation modes of the system. These have an advantage of being
+relatively easy
+to set up and getting useful results immediately, especially in large systems with relatively simple constraints that are clearly defined.
+Forming a rule-based anomaly detection manually can become very cumbersome if the system is very complex. There is a limit on the complexity of such a rule set because
+the rule set needs to be maintained and updated. For this reason, manually defined heuristic rule sets for anomaly detection might be lax in their formulation
+for complex systems which limits their usefulness in such domains.
 
 Sequences of events can be used to create an abstraction of causal chains in industrial processes under observation. Adding delays to the event sequence model can provide important
 additional knowledge about the patterns in the process. Delays in industrial processes typically follow approximately multimodal distributions with several distinct peaks.
