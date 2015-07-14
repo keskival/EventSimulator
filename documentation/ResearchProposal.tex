@@ -113,10 +113,11 @@ with decimation could be used for this. This is also closely related to coding g
 \section{Proof of Concept}
 
 The first proof of concept using a simulated factory model and CURRENNT\cite{CURRENNT} recurrent LSTM neural network framework
-has been implemented and it shows that
-a toy example\cite{PoC}
+has been implemented and it shows that a toy example\cite{PoC}
 is learned properly, measured by the error in the validation set approaching zero. The toy example was designed to be somewhat non-deterministic and to include specific
 features mixing separate plant sequences together by using shared intermediate states to make it impossible for a trivial Markov chain model to learn the process properly.
+
+A fork of CURRENNT was made to make it work on a recent CUDA Toolkit\cite{CURRENNTFORK}.
 
 \section{Practical Next Steps}
 
