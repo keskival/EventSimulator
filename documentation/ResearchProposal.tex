@@ -4,7 +4,7 @@
 \usepackage{amsthm, amscd, amsfonts, amssymb, graphicx,tikz, color, environ}
 
 %opening
-\title{Research Proposal: Anomaly Detection in Flexible Assembly Systems}
+\title{Research Proposal: Anomaly Detection in Assembly Systems using LSTM Neural Networks with Log-structured Data Sources}
 \author{Tero Keski-Valkama}
 
 \begin{document}
@@ -12,20 +12,21 @@
 \maketitle
 
 \smallskip
-\noindent \textbf{Keywords.} Anomaly Detection, Assembly, Long Short-Term Memory, Log-structured Input, Neural Networks
+\noindent \textbf{Keywords.} Anomaly detection, Assembly systems, Artificial intelligence, Fault detection, Learning systems, Long short-term memory,
+Log-structured input, Machine intelligence, Machine learning, Pattern analysis, Predictive maintenance, Recurrent neural networks
 
 \section{Problem Statement}
 
 Modern industrial plants are gaining advanced data acquisition capabilities rapidly because of Internet of Things technologies and open, standard APIs.
-Malfunctions are a significant cause for expensive downtime in automatic plants. Traditionally malfunctions are detected through specific and pre-designed fault codes
-and diagnostic metrics. However, especially in the context of preventive maintenance the fault codes are lacking as they typically signal only at the point where downtime
+Malfunctions are a significant cause for expensive downtime in automatic assembly systems. Traditionally malfunctions are detected through specific and pre-designed fault codes
+and diagnostic metrics. However, especially in the context of predictive maintenance the fault codes are lacking as they typically signal only at the point where downtime
 actually happens. Preventive maintenance is done by periodical scheduling and at the discretion of human operators when something seems to start breaking apart.
 Often the human operators periodically check the process metrics and event logs to see any discrepancies and anomalies. There is a lot of potential in automatic anomaly
 detection, as the anomalies can be observed instantly as they happen and not only after the human operator checks the logs and metrics the next time. Automatic
 anomaly detection can also potentially detect anomalies that would otherwise not be immediately evident for human operators.
 
 Automatic anomaly detection in its general form monitors the states and signals of the industrial processes and creates new warning signals based on perceived potential anomalies.
-The anomaly detection generally utilizes either a predictive model or a set of heuristics to define the normal mode of operation for the plant processes. To derive such a model,
+The anomaly detection generally utilizes either a predictive model or a set of heuristics to define the normal mode of operation for the assembly processes. To derive such a model,
 either machine learning approaches or existing human operator knowledge, or some combination of the two is used.
 
 Modern flexible manufacturing and assembly sites are very heterogeneous and different end products require different workflows and sequences in the system. Operation that is normal
@@ -34,10 +35,14 @@ production processes, especially for distinct components of the system.
 
 A commonly used approach for anomaly detection is forming a heuristic rule set for defining the normal operation modes of the system. These have an advantage of being
 relatively easy
-to set up and getting useful results immediately, especially in large systems with relatively simple constraints that are clearly defined.
-Forming a rule-based anomaly detection manually can become very cumbersome if the system is very complex. There is a limit on the complexity of such a rule set because
-the rule set needs to be maintained and updated. For this reason, manually defined heuristic rule sets for anomaly detection might be lax in their formulation
-for complex systems which limits their usefulness in such domains.
+to set up and getting useful results immediately, especially in large systems with relatively few and static constraints that are clearly defined.
+Forming a rule-based anomaly detection manually can become very cumbersome if the system is very complex. There is a practical limit on the complexity of such a rule set because
+the rule set needs to be maintained and updated. Rule-based anomaly detection can handle large data structures and extract rich domain specific information from
+the log messages such as calculated length of sessions.
+
+There are also existing systems which are approximately equivalent to a naive Markov chain model, like \cite{langer2011self}. These have the same issues as the trivial Markov
+chain model, namely that with multiple interlinked and parallel processes, the state transition space becomes exponential and a prohibitive amount of time would be needed
+to train such a system.
 
 Sequences of events can be used to create an abstraction of causal chains in industrial processes under observation. Adding delays to the event sequence model can provide important
 additional knowledge about the patterns in the process. Delays in industrial processes typically follow approximately multimodal distributions with several distinct peaks.
@@ -55,20 +60,28 @@ This happens for example when the event for the figurative elevator button being
 I got first hand experience in the problem field and potential solutions in \#IndustryHack \#HackTheFactory competition in Fastems in May 22th – May 24th, 2015\cite{IndustryHack}.
 My team won the competition with a consept utilizing a trivial and naive Markov chain model of the process with crude anomaly detection capability.
 There is a clear need of such solutions, and considerable improvement of the concept is possible through researching novel application of modern machine learning in the context
-of industrial automation system anomaly detection.
+of industrial automation system anomaly detection. The Markov chain model was roughly equivalent to a previously studied DFA model\cite{langer2011self} which was
+ultimately deemed inadequate for
+situations where log messages of parallel processes are intermingled together into the same log stream. DFA and Markov chain models assume there is only one state machine
+reflected in the logs, and cannot learn to separate different processes. Additionally it might be impossible to manually multiplex log messages to separate state machines
+as there might be log messages that are shared for several separate processes.
 
 Events are observed through different log structured data sources and event source APIs. In the context of this research an anomaly means a sequence of observed events which
 deviates from the expected, normal and flawless system operation and possibly predicts a future fault.
 
 Internet of Things and deep learning with Long Short Term Memory are relatively new fields and as far as I am aware no published solutions exist utilizing
-recurrent neural networks for industrial plant anomaly detection. Of course additional literature research is needed.
+recurrent neural networks for assembly system anomaly detection. Of course additional literature research is needed.
 
 \section{Research Proposal}
 
 I propose a novel method of anomaly detection using online unsupervised Long Short Term Memory (LSTM)\cite{LSTM} recurrent neural networks which can be used to predictive
-modelling the underlying automation process. Unsupervised neural networks are used in anomaly detection generally by making them model the events detected
+modelling\cite{gers2000learning} the underlying automation process. Unsupervised neural networks are used in anomaly detection generally by making them model the events detected
 in the process and predicting the following states. If the model fails to predict the following events, an anomaly is flagged.
 As a practical example using an elevator as a figurative example, sensors might indicate elevator doors opening twice in a row without being properly closed in between.
+
+LSTM neural networks work well for tasks in which a limited amount of input data or some abstractions of it affect the output for a long time. Specifically
+LSTM neural networks are good in separating and learning to model separate parallel processes which generate interlaced log messages in an unsupervised fashion
+with limited or no information about the domain.
 
 Online model is required for the system to run in a live environment and generate useful alerts. Generalizing and specializing the learned models between similar but
 different assembly processes might warrant hierarchical modelling.
@@ -102,12 +115,25 @@ Again using the elevator as a figurative example, a change in the delay between 
 as an anomaly. This requires comparisons of novel combinations of statistical techniques with recurrent neural network base system or different kinds of
 modellings of delays in such a neural network.
 
+There has been some research into coding delays or intervals into LSTM neural networks. Typically the delays are coded using a constant interval
+time steps\cite{gers2003learning}. However, for log-structured data using constant interval time steps is not a very good approach, but could in principle be implemented
+by adding a constant interval tick log message as an input so that the LSTM neural network can count the ticks between events. In any case, because we don't know the relevant
+time spans beforehand, the tick trains would potentially become prohibitively long, or on the other hand, might lose smaller grain detail. For log structured data
+the time spans should be coded into the input similarly to other real valued data.
+
+Because the delays follow multimodal distributions and the neural network predicts the delay through coded output, the neural network output neurons that correspond to
+the coding of the delay should be able to code multimodal distributions. For example, a single real valued output neuron is not adequate, because it would only code
+one peak of a potentially multimodal distribution. Output neurons corresponding to histogram buckets of the probability density could be used. Histogram buckets of
+the probability density of course would have preset ranges, and this might potentially lose relevant information in the coding. Output could be coded as normalized with
+the output standard deviation, as long as the output standard deviation stabilizes relatively fast during learning.
+
 Modelling the delay might require measuring the delay to the previous event of a certain type to prevent unrelated events from cutting the modelled delays into arbitrary parts,
 and even then we might get a multimodal distribution. Event types in this context correspond to the input neurons of the neural network.
 For some cases it might be possible to extract information from the event sequence so that
-the expected mode (peak) of the distribution can be selected from multiple peaks. For example,
+the expected mode (peak) of the distribution can be predicted from multiple peaks by the neural network. For example,
 the elevator model might estimate the delay between doors closing and opening if it observes a certain floor button being pressed in between.
-A literature study is needed to search for good methods to use in modelling multimodal distributions in anomaly detection context. Possibly kernel density estimation
+
+A literature study is needed to search for methods that have been used in modelling multimodal distributions in anomaly detection context. Possibly kernel density estimation
 with decimation could be used for this. This is also closely related to coding general numerical values in log events into neural network input values.
 
 \section{Proof of Concept}
@@ -115,13 +141,13 @@ with decimation could be used for this. This is also closely related to coding g
 The first proof of concept using a simulated factory model and CURRENNT\cite{CURRENNT} recurrent LSTM neural network framework
 has been implemented and it shows that a toy example\cite{PoC}
 is learned properly, measured by the error in the validation set approaching zero. The toy example was designed to be somewhat non-deterministic and to include specific
-features mixing separate plant sequences together by using shared intermediate states to make it impossible for a trivial Markov chain model to learn the process properly.
+features mixing separate assembly sequences together by using shared intermediate states to make it impossible for a trivial Markov chain model to learn the process properly.
 
 A fork of CURRENNT was made to make it work on a recent CUDA Toolkit\cite{CURRENNTFORK}.
 
 \section{Practical Next Steps}
 
-The simulated factory model will be augmented in the future to contain salient process dynamics and features from the real industrial plant logs to enable subsequent
+The simulated factory model will be augmented in the future to contain salient process dynamics and features from the real industrial assembly system logs to enable subsequent
 derivative research and faster iteration cycles. The real factory data contains critical business secrets such as fault frequencies and therefore cannot be published as such.
 
 Additional validation requires visualization of the learned features and generative modelling not currently supported by CURRENNT.
@@ -131,7 +157,7 @@ the neural network model is the best approach.
 It is suggested that the core of the research will be done in Tampere from Q4/2015 forwards.
 The research will be divided into several publications, roughly following:
 \begin{itemize}
- \item Simulating realistic assembly plant operation and malfunctions
+ \item Simulating realistic assembly system operation and malfunctions
  \item Validating the LSTM model learned from logs using visualization and generation
  \item Comparison of LSTM model with other models, for example Markov Chain
  \item Incorporating delay modelling into the learned process model
