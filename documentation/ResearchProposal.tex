@@ -4,7 +4,7 @@
 \usepackage{amsthm, amscd, amsfonts, amssymb, graphicx,tikz, color, environ}
 
 %opening
-\title{Research Proposal: Anomaly Detection in Assembly Systems using LSTM Neural Networks with Log-structured Data Sources}
+\title{Research Proposal: Anomaly Detection in Flexible Assembly Systems using LSTM Neural Networks with Log-structured Data Sources}
 \author{Tero Keski-Valkama}
 
 \begin{document}
@@ -18,7 +18,7 @@ Log-structured input, Machine intelligence, Machine learning, Pattern analysis, 
 \section{Problem Statement}
 
 Modern industrial plants are gaining advanced data acquisition capabilities rapidly because of Internet of Things technologies and open, standard APIs.
-Malfunctions are a significant cause for expensive downtime in automatic assembly systems. Traditionally malfunctions are detected through specific and pre-designed fault codes
+Malfunctions are a significant cause for expensive downtime in flexible assembly systems. Traditionally malfunctions are detected through specific and pre-designed fault codes
 and diagnostic metrics. However, especially in the context of predictive maintenance the fault codes are lacking as they typically signal only at the point where downtime
 actually happens. Preventive maintenance is done by periodical scheduling and at the discretion of human operators when something seems to start breaking apart.
 Often the human operators periodically check the process metrics and event logs to see any discrepancies and anomalies. There is a lot of potential in automatic anomaly
@@ -70,7 +70,7 @@ Events are observed through different log structured data sources and event sour
 deviates from the expected, normal and flawless system operation and possibly predicts a future fault.
 
 Internet of Things and deep learning with Long Short Term Memory are relatively new fields and as far as I am aware no published solutions exist utilizing
-recurrent neural networks for assembly system anomaly detection. Of course additional literature research is needed.
+recurrent neural networks for flexible assembly system anomaly detection. Of course additional literature research is needed.
 
 \section{Research Proposal}
 
@@ -147,7 +147,7 @@ A fork of CURRENNT was made to make it work on a recent CUDA Toolkit\cite{CURREN
 
 \section{Practical Next Steps}
 
-The simulated factory model will be augmented in the future to contain salient process dynamics and features from the real industrial assembly system logs to enable subsequent
+The simulated factory model will be augmented in the future to contain salient process dynamics and features from the real flexible assembly system logs to enable subsequent
 derivative research and faster iteration cycles. The real factory data contains critical business secrets such as fault frequencies and therefore cannot be published as such.
 
 Additional validation requires visualization of the learned features and generative modelling not currently supported by CURRENNT.
@@ -157,7 +157,7 @@ the neural network model is the best approach.
 It is suggested that the core of the research will be done in Tampere from Q4/2015 forwards.
 The research will be divided into several publications, roughly following:
 \begin{itemize}
- \item Simulating realistic assembly system operation and malfunctions
+ \item Simulating realistic flexible assembly system operation and malfunctions
  \item Validating the LSTM model learned from logs using visualization and generation
  \item Comparison of LSTM model with other models, for example Markov Chain
  \item Incorporating delay modelling into the learned process model
