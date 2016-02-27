@@ -25,13 +25,13 @@ The work steps executed in the cells can be manual or automatic. There can be a 
 and the end products waiting to be transported out of the system.
 
 Flexible Assembly System work loads consist of small and medium sized batches where there can be some variation in the products based on customization and personalization.
-The Flexible Assembly Systems are modular and often composed out of independent modules from different suppliers. The Flexible Assembly System event stream consists
+The Flexible Assembly Systems are modular and often composed out of independent modules from different suppliers. The Flexible Assembly System event trace consists
 of events received from all the separate modules of the system, and additional sensors and triggers added to the system in integration phase or later.
 
-Using a Flexible Assembly System to assemble batches of products generates an electronic event stream which is logged. The events in the event stream are typically at least
+Using a Flexible Assembly System to assemble batches of products generates an electronic event trace which is logged. The events in the event trace are typically at least
 partially agnostic to the assembly process being performed, and therefore the events do not include tokens connecting the event to a specific final product instance.
 
-Simulating these kinds of event streams provides valuable material for learning systems which can be used to derive assembly process models and to detect deviances.
+Simulating these kinds of event traces provides valuable material for learning systems which can be used to derive assembly process models and to detect deviances.
 
 \section{Description of Method}
 
@@ -59,7 +59,7 @@ Overall the following subtopics are recognized:
    \end{enumerate}
  \item Mathematical analysis of log data
    \begin{enumerate}
-     \item Analysing interleaved event streams
+     \item Analysing interleaved event traces
      \item Analysing delays and intervals
    \end{enumerate}
  \item Process mining
@@ -86,6 +86,7 @@ read and relevant keywords were picked from titles, abstracts and references. Th
  \item compliant parts
  \item dimensional quality
  \item dimensional variation propagation
+ \item discrete event system
  \item Failure mode and effects analysis (FMEA)
  \item failure rates
  \item failure records
@@ -122,11 +123,25 @@ The core questions about the existing literature are:
 
 \section{Synthesis}
 
-Flexible Assembly Systems are modelled as colored Petri nets.
+Assembly systems, construction processes and business processes are often simulated using discrete event simulation, for example in:
+\cite{hlupic1998business,zhao2010efficient,kang2013active,rahnama2010fuzzy}. These simulations are used for process optimization\cite{sadeghi2008framework}, scheduling and
+assembly line design. The models of these systems are conveniently described using Process algebra Petri nets (PPNs) \cite{falkman2007specification}.
 
-Process mining is the field of inferring the underlying business processes based on observed events and transitions.
-The current de facto methods for describing process logs in the context of process mining are loosely based on the alpha algorithm and they all expect process instances
-to be identified in the input event streams. This means that the corresponding Petri net models are colored\cite{Reisig1983}.
+The literature about faults and deviances in assembly processes mainly focus on the faults in the assembled products.
+There are less academic publications about simulating process deviances in assembly processes such as unexpected process failures, human errors, and deadlocks.
+
+The model of the simulated system is created in production line design \cite{bullinger}, by observing the system, or by interviewing the system specialists \cite{montevechi2012using}.
+
+A discrete event simulation output is a sequence of generated events,
+and the internal system state between the events. The sequence of generated events is useful as a corpus for learning algorithms if it reflects the real conditions and
+target phenomena well enough. In the case of fault detection, the simulation should be representative for the correct operation of the target system, and deviances
+are in principle.
+
+Process mining is the field of inferring the underlying business processes based on observed events and transitions. The process mining methods can be used
+to compare the supposed process model with the observed processes to detect deviances.
+Parallel processes create interleaved process traces.
+The methods for describing process traces in the context of process mining are loosely based on the alpha algorithm and as such, they all expect process instances
+to be identified in the activity events to deinterleave the process traces and to infer causal relations of activities.
 
 \bibliographystyle{IEEEtran}
 \bibliography{LiteratureReview}
