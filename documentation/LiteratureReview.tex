@@ -185,7 +185,7 @@ Data representation as audio (Sonification \cite{refKra}) has been investigated 
 \section{Problem Statement}
 
 Creating new types of process mining and learning systems for anomaly detection in Flexible Assembly Systems requires data in the form of process traces.
-A simulated model of a Flexible Assembly System is required to generate appropriate event streams, and to simulate failure modes. These kinds of simulations
+A simulated model of a Flexible Assembly System is required to generate appropriate event streams and to simulate failure modes. These kinds of simulations
 do not exist at the moment in academic literature. While process deviances in assembly systems are described in the literature, there are no simulations of such.
 
 The generated process traces are interleaved and the events are uncorrelated. Finding good methods for process mining such data is an open research problem.
@@ -206,15 +206,17 @@ Different kinds of batches and operating conditions are used, and resultant proc
 
 \section{Model Development}
 
-The model of the system is loosely based on a Youtube video of a real Flexible Assembly System. The work steps are catalogued and timed, and a discrete event simulation
+The model of the system is loosely based on a Youtube video\cite{transmission} of a real Flexible Assembly System in Chrysler transmission assembly line.
+The work steps are catalogued and timed, and a discrete event simulation
 is developed to roughly reflect that kind of production run. Faults from existing literature are added to the simulation to produce process deviances.
 The process traces reflecting these process deviances are represented in visual and in audial form to assert that they have features that can in principle be detected
 by automatic systems.
 
 \section {Model Verification}
 
-The goal of the research project is to create a source for interesting data for modelling. To be interesting, the simulation implemented should roughly correspond to real
-conditions, although it does not need to exactly replicate any specific existing system. The represented process traces should somehow show the failure conditions.
+The goal of the research project is to create a source of interesting data for modelling. To be interesting, the simulation implemented should roughly correspond to real
+conditions, although it does not need to exactly replicate any specific existing system. The represented process traces should somehow exhibit the failure conditions
+which are not evident from explicit error codes in the logs.
 
 \bibliographystyle{IEEEtran}
 \bibliography{LiteratureReview}
