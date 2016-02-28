@@ -62,7 +62,7 @@ Overall the following subtopics are recognized:
    \end{enumerate}
  \item Mathematical analysis of log data
    \begin{enumerate}
-     \item Analysing interleaved event traces
+     \item Analysing interleaved process traces
      \item Analysing delays and intervals
    \end{enumerate}
  \item Process mining
@@ -149,7 +149,9 @@ are in principle visible in the output data model.
 
 Process mining is the field of inferring the underlying business processes based on observed events and transitions. The process mining methods can be used
 to compare the supposed process model with the observed process model to detect deviances.
-Parallel processes create interleaved process traces.
+Parallel processes create interleaved process traces. The set of all the interleaved process traces form a language. As this language consists of interleaved allowed sequences
+it is a shuffle language\cite{berglund2011recognizing}.
+
 The methods for describing process traces in the context of process mining are loosely based on the alpha algorithm\cite{van2004workflow} and as such, they expect process instances
 to be identified in the activity events to deinterleave the process traces and to infer causal relations of activities.
 ``Event logs need to satisfy two main requirements: (a) events need to be ordered in time and (b) events need to be correlated
