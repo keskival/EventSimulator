@@ -156,7 +156,8 @@ Parallel processes create interleaved process traces. The set of all the interle
 it is a shuffle language\cite{berglund2011recognizing}.
 
 Process mining is the field of inferring the underlying business processes based on observed events and transitions. The process mining methods can be used
-to compare the supposed process model with the observed process model to detect deviances.
+to compare the supposed process model with the observed process model to detect deviances. Process mining methods have not been previously used for
+Flexible Assembly System process modelling and verification.
 
 The methods for describing process traces in the context of process mining are loosely based on the alpha algorithm\cite{van2004workflow} and as such, they expect process instances
 to be identified in the activity events to deinterleave the process traces and to infer causal relations of activities.
@@ -180,6 +181,40 @@ A multi-modal representation utilizes different sensory-cognitive capabilities t
 There is a lot of literature about discovering structure in sequences and time series by using different visual representations and
 projections \cite{hein2010recognition,misue2014chronoview}. Visualizations are also used in model-based reporting\cite{schuh2013ieee}.
 Data representation as audio (Sonification \cite{refKra}) has been investigated for example in \cite{yeung1980pattern,kaper1999data}.
+
+\section{Problem Statement}
+
+Creating new types of process mining and learning systems for anomaly detection in Flexible Assembly Systems requires data in the form of process traces.
+A simulated model of a Flexible Assembly System is required to generate appropriate event streams, and to simulate failure modes. These kinds of simulations
+do not exist at the moment in academic literature. While process deviances in assembly systems are described in the literature, there are no simulations of such.
+
+The generated process traces are interleaved and the events are uncorrelated. Finding good methods for process mining such data is an open research problem.
+
+This research aims to create a simulation of a Flexible Assembly System capable of representing correct operation and different failure modes.
+The generated process traces are visualized to show their general form to direct selection of data representation.
+
+\section{Concept}
+
+A discrete event simulation is created to model the behavior of a representative Flexible Assembly System. The symbolic event streams are generated and visualized in different ways
+to evaluate the potential for applying different methods to such data. Special attention is given to the possibility of extracting interleaved process traces out of such data.
+If a human is capable of seeing or hearing the interleaved patterns in the data, then it should in principle be possible for automatic systems also.
+
+\section{Research Methodology}
+
+The research is mostly about literature review of Flexible Assembly System modelling and simulation, and of relevant failure modes.
+Different kinds of batches and operating conditions are used, and resultant process traces are represented to show general characteristics of such production runs and failures.
+
+\section{Model Development}
+
+The model of the system is loosely based on a Youtube video of a real Flexible Assembly System. The work steps are catalogued and timed, and a discrete event simulation
+is developed to roughly reflect that kind of production run. Faults from existing literature are added to the simulation to produce process deviances.
+The process traces reflecting these process deviances are represented in visual and in audial form to assert that they have features that can in principle be detected
+by automatic systems.
+
+\section {Model Verification}
+
+The goal of the research project is to create a source for interesting data for modelling. To be interesting, the simulation implemented should roughly correspond to real
+conditions, although it does not need to exactly replicate any specific existing system. The represented process traces should somehow show the failure conditions.
 
 \bibliographystyle{IEEEtran}
 \bibliography{LiteratureReview}
