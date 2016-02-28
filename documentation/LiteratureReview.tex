@@ -12,7 +12,7 @@
 \maketitle
 
 \smallskip
-\noindent \textbf{Keywords.} Flexible Assembly System, Simulation
+\noindent \textbf{Keywords.} Flexible Assembly System, Discrete Event Simulation, process mining, uncorrelated event streams, multi-modal representation
 
 \section{Topic}
 Flexible Assembly System is a modular and reconfigurable assembly and tooling workshop with a focus on small and medium-sized batches of varying products.
@@ -32,6 +32,9 @@ Using a Flexible Assembly System to assemble batches of products generates an el
 partially agnostic to the assembly process being performed, and therefore the events do not include tokens connecting the event to a specific final product instance.
 
 Simulating these kinds of event traces provides valuable material for learning systems which can be used to derive assembly process models and to detect deviances.
+It is in principle possible for an automatic system to detect features in the given material in an unsupervised fashion at least when a human is capable of doing so.
+A multimodal approach is convenient in data representation when we need to explore human pattern recognition capabilities. In specific, data visualization as audio
+allows a human to understand the data melodies, rhythms and possible canon-like features.
 
 \section{Description of Method}
 
@@ -107,6 +110,7 @@ read and relevant keywords were picked from titles, abstracts and references. Th
  \item reduction of irregularities
  \item reliability
  \item simulation
+ \item sonification
  \item time-domain visualization
  \item uncolored petri nets
  \item variation propagation
@@ -116,8 +120,9 @@ read and relevant keywords were picked from titles, abstracts and references. Th
 
 The core questions about the existing literature are:
 \begin{enumerate}
+ \item How are assembly systems described and modelled?
  \item What methods are there to model and simulate assembly processes and related faults?
- \item What methods are there to visualize event logs with or without timestamps?
+ \item What methods are there to visualize and represent event logs with or without timestamps?
  \item What are the relevant keywords and terms to describe this problem space?
 \end{enumerate}
 
@@ -131,17 +136,41 @@ The literature about faults and deviances in assembly processes mainly focus on 
 There are less academic publications about simulating process deviances in assembly processes such as unexpected process failures, human errors, and deadlocks.
 
 The model of the simulated system is created in production line design \cite{bullinger}, by observing the system, or by interviewing the system specialists \cite{montevechi2012using}.
+The model is changed for each batch of different products being produced.
+
+The fault types relevant in the context of this research are faults in the assembly system itself, not faults in the products being assembled.
+The assembly system faults can be faults of specific components, or systemic faults, such as deadlocks.
+Different kinds of faults relevant for the Flexible Assembly Systems have been described for example in \cite{cong1997fault}.
 
 A discrete event simulation output is a sequence of generated events,
 and the internal system state between the events. The sequence of generated events is useful as a corpus for learning algorithms if it reflects the real conditions and
-target phenomena well enough. In the case of fault detection, the simulation should be representative for the correct operation of the target system, and deviances
-are in principle.
+target phenomena well enough. In the case of anomaly detection, the simulation should be representative for the correct operation of the target system, so that deviances
+are in principle visible in the output data model.
 
 Process mining is the field of inferring the underlying business processes based on observed events and transitions. The process mining methods can be used
-to compare the supposed process model with the observed processes to detect deviances.
+to compare the supposed process model with the observed process model to detect deviances.
 Parallel processes create interleaved process traces.
-The methods for describing process traces in the context of process mining are loosely based on the alpha algorithm and as such, they all expect process instances
+The methods for describing process traces in the context of process mining are loosely based on the alpha algorithm\cite{van2004workflow} and as such, they expect process instances
 to be identified in the activity events to deinterleave the process traces and to infer causal relations of activities.
+``Event logs need to satisfy two main requirements: (a) events need to be ordered in time and (b) events need to be correlated
+(i.e., each event needs to refer to a particular case)."\cite{van2011process}
+There is very little academic literature about process mining of uncorrelated event streams. Uncorrelated event streams are important modelling targets when the event sources
+are heterogeneous and not necessarily mapped to the specific steps in the known assembly process. This brings event sources such as emergency stop triggers, light ports and smart gateways
+into the process information system even if the log messages they trigger are not correlated to specific process instances.
+
+Multi-modal representation of the event streams for the purpose of evaluating the human-observable presentation of features in the data is relevant in context of this research.
+Having a human-detectable pattern in data where the same pattern is challenging to
+detect with automatic means highlights a potential avenue for additional research.
+
+If a pattern is evident for humans in the data representation, it is in principle discoverable by learning algorithms.
+
+Different human sensory systems are tuned for particular types of patterns, for example music and speech
+can be appreciated and recognized as audio, but the same signal patterns in visual representation are not recognized as well.
+A multi-modal representation utilizes different sensory-cognitive capabilities to better facilitate detection of embedded patterns in the data.
+
+There is a lot of literature about discovering structure in sequences and time series by using different visual representations and
+projections \cite{hein2010recognition,misue2014chronoview}. Visualizations are also used in model-based reporting\cite{schuh2013ieee}.
+Data representation as audio (Sonification \cite{refKra}) has been investigated for example in \cite{yeung1980pattern,kaper1999data}.
 
 \bibliographystyle{IEEEtran}
 \bibliography{LiteratureReview}
