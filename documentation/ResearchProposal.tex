@@ -4,7 +4,7 @@
 \usepackage{amsthm, amscd, amsfonts, amssymb, graphicx,tikz, color, environ}
 
 %opening
-\title{Research Proposal: Anomaly Detection in Flexible Assembly Systems using LSTM Neural Networks with Log-structured Data Sources}
+\title{Research Proposal: Anomaly Detection in Flexible Assembly Systems using LSTM Neural Networks with Process Traces}
 \author{Tero Keski-Valkama}
 
 \begin{document}
@@ -13,7 +13,7 @@
 
 \smallskip
 \noindent \textbf{Keywords.} Anomaly detection, Assembly systems, Artificial intelligence, Fault detection, Learning systems, Long short-term memory,
-Log-structured input, Machine intelligence, Machine learning, Pattern analysis, Predictive maintenance, Recurrent neural networks
+Process traces, Machine intelligence, Machine learning, Pattern analysis, Predictive maintenance, Recurrent neural networks
 
 \section{Problem Statement}
 
@@ -44,25 +44,25 @@ There are also existing systems which are approximately equivalent to a naive Ma
 chain model, namely that with multiple interlinked and parallel processes, the state transition space becomes exponential and a prohibitive amount of time would be needed
 to train such a system.
 
-Sequences of events can be used to create an abstraction of causal chains in industrial processes under observation. Adding delays to the event sequence model can provide important
-additional knowledge about the patterns in the process. Delays in industrial processes typically follow approximately multimodal distributions with several distinct peaks.
+Sequences of events can be used to create an abstraction of causal chains in industrial processes under observation. Dmbedding intervals to the event sequence model
+can provide important additional knowledge about the patterns in the process.
+
+Intervals in industrial processes typically follow approximately multimodal distributions with several distinct peaks.
 To use a figurative example, an elevator might take several different paths between the doors closing and opening in different floors, so the delays would form different
 peaks following the delays it takes to travel different distances between all the floors.
 
-Some events are unrelated to an otherwise deterministic sequence being executed
-and might happen in between two events otherwise separated by a constant delay cutting the delay between the two related events into two arbitrary parts.
-Even if the system could extract and model the deterministic causally linked sequences from the process,
-the observed sequence might not include relevant information to estimate the correct peak of the multimodal delay distribution.
-This happens for example when the event for the figurative elevator button being pressed is not available for observation for the system.
+Coding the intervals could be done by simply embedding the symbols into a feature space with preceding intervals to
+each of the symbol classes. Coding this as a convolutive list of delays will implement a direct coding of information about the dynamic state of the system. It is hypothesized that
+this will make it easier for machine learning methods to extract process models.
 
 \section{Background}
 
 I got first hand experience in the problem field and potential solutions in \#IndustryHack \#HackTheFactory competition in Fastems in May 22th – May 24th, 2015\cite{IndustryHack}.
-My team won the competition with a consept utilizing a trivial and naive Markov chain model of the process with crude anomaly detection capability.
+My team won the competition with a concept utilizing a trivial and naive Markov chain model of the process with crude anomaly detection capability.
 There is a clear need of such solutions, and considerable improvement of the concept is possible through researching novel application of modern machine learning in the context
 of industrial automation system anomaly detection. The Markov chain model was roughly equivalent to a previously studied DFA model\cite{langer2011self} which was
 ultimately deemed inadequate for
-situations where log messages of parallel processes are intermingled together into the same log stream. DFA and Markov chain models assume there is only one state machine
+situations where log messages of parallel processes are interleaved together into the same process trace. DFA and Markov chain models assume there is only one process instance
 reflected in the logs, and cannot learn to separate different processes. Additionally it might be impossible to manually multiplex log messages to separate state machines
 as there might be log messages that are shared for several separate processes.
 
@@ -70,33 +70,34 @@ Events are observed through different log structured data sources and event sour
 deviates from the expected, normal and flawless system operation and possibly predicts a future fault.
 
 Internet of Things and deep learning with Long Short Term Memory are relatively new fields and as far as I am aware no published solutions exist utilizing
-recurrent neural networks for flexible assembly system anomaly detection. Of course additional literature research is needed.
+recurrent neural networks for flexible assembly system anomaly detection.
 
 \section{Research Proposal}
 
 I propose a novel method of anomaly detection using online unsupervised Long Short Term Memory (LSTM)\cite{LSTM} recurrent neural networks which can be used to predictive
 modelling\cite{gers2000learning} the underlying automation process. Unsupervised neural networks are used in anomaly detection generally by making them model the events detected
-in the process and predicting the following states. If the model fails to predict the following events, an anomaly is flagged.
-As a practical example using an elevator as a figurative example, sensors might indicate elevator doors opening twice in a row without being properly closed in between.
+in the process and predicting the following states, that is using continual prediction.
+If the model fails to predict the following events, an anomaly is flagged.
+As a practical example of an anomaly using an elevator as a figurative example, sensors might indicate elevator doors opening twice in a row without being properly closed in between.
 
 LSTM neural networks work well for tasks in which a limited amount of input data or some abstractions of it affect the output for a long time. Specifically
-LSTM neural networks are good in separating and learning to model separate parallel processes which generate interlaced log messages in an unsupervised fashion
-with limited or no information about the domain.
+it is hypothesized that LSTM neural networks are good in separating and learning to model separate parallel processes which generate interleaved log messages
+in an unsupervised fashion with limited or no information about the domain.
 
 Online model is required for the system to run in a live environment and generate useful alerts. Generalizing and specializing the learned models between similar but
-different assembly processes might warrant hierarchical modelling.
+different assembly processes might warrant hierarchical modelling and transfer learning.
 
-For training the models, it is possible to use logs that span multiple sites and significant time spans. Validation of the systems and solution alternatives is done by quantifying
-the faults that are correctly predicted by the anomaly detection system. 
+Existing anomaly detection and process deviation detection simulators and validation logs which might apply to this field of study have not been published,
+so it is necessary to start this research by creating a valid simulator for a Flexible Assembly System.
 
 \subsection{Anomaly Detection}
 
 Several novel specializations are suggested to the general LSTM model to make this kind of approach work in the practical business context.
-For example, utilizing the learned data from several sites so that actual anomalies do not become something the unsupervised neural network expects and therefore
-does not recognize as anomalies anymore is a fundamental problem with anomaly detection systems based on quantifying the ``surprise'' when comparing the prediction against
+For example, it is possible for an anomaly detection system to learn to expect an anomaly, and therefore not consider it anomalous anymore.
+This is a fundamental problem with anomaly detection systems based on quantifying the ``surprise'' when comparing the prediction against
 the actual subsequent event. A hybrid model is suggested where the network classifies the situations into normal and specific classes
 of previously encountered anomalies in addition to predicting the next event. This requires the network to associate newly encountered situations into previously
-encountered surprising learning events in an unsupervised fashion. This might be implemented for example using a separate learning system classifying the internal
+encountered surprising learning events in a partially supervised fashion. This might be implemented for example using a separate learning system classifying the internal
 states of the LSTM neural network into classes of previously encountered anomalies and normal operation.
 Newly encountered and detected anomalies are classified and tagged as relevant or irrelevant at a later point when the anomaly notifications are handled
 by a human operator opening up possibilities of associating new anomalies to past anomaly classes and situations, and to attached metadata such as comments by operators.
@@ -127,14 +128,15 @@ one peak of a potentially multimodal distribution. Output neurons corresponding 
 the probability density of course would have preset ranges, and this might potentially lose relevant information in the coding. Output could be coded as normalized with
 the output standard deviation, as long as the output standard deviation stabilizes relatively fast during learning.
 
+It is also possible to code the delays as input values to lists of convolutive neurons.
+
 Modelling the delay might require measuring the delay to the previous event of a certain type to prevent unrelated events from cutting the modelled delays into arbitrary parts,
 and even then we might get a multimodal distribution. Event types in this context correspond to the input neurons of the neural network.
 For some cases it might be possible to extract information from the event sequence so that
 the expected mode (peak) of the distribution can be predicted from multiple peaks by the neural network. For example,
 the elevator model might estimate the delay between doors closing and opening if it observes a certain floor button being pressed in between.
 
-A literature study is needed to search for methods that have been used in modelling multimodal distributions in anomaly detection context. Possibly kernel density estimation
-with decimation could be used for this. This is also closely related to coding general numerical values in log events into neural network input values.
+It is hypothesized that coding the preceding intervals into each of the symbol classes provides a useful embedding for this information.
 
 \section{Proof of Concept}
 
@@ -151,17 +153,16 @@ The simulated factory model will be augmented in the future to contain salient p
 derivative research and faster iteration cycles. The real factory data contains critical business secrets such as fault frequencies and therefore cannot be published as such.
 
 Additional validation requires visualization of the learned features and generative modelling not currently supported by CURRENNT.
-CURRENNT also does not support online, or stream execution model. It will be decided later whether extending CURRENNT or creating a completely new library for
-the neural network model is the best approach.
+CURRENNT also does not support online, or stream execution model. The next iterations of the LSTM neural network system are implemented in CuTorch.
 
-It is suggested that the core of the research will be done in Tampere from Q4/2015 forwards.
+It is suggested that the core of the research will be done in Tampere from Q1/2016 forwards.
 The research will be divided into several publications, roughly following:
 \begin{itemize}
  \item Simulating realistic flexible assembly system operation and malfunctions
  \item Validating the LSTM model learned from logs using visualization and generation
- \item Comparison of LSTM model with other models, for example Markov Chain
- \item Incorporating delay modelling into the learned process model
- \item Classification and retrieval of previously encountered anomalies
+ \item Embedding delay modelling into the data model
+ \item Investigation of transfer learning techniques for this application field
+ \item Classification and retrieval of previously encountered anomalies possibly using Case Based Reasoning
 \end{itemize}
 Journals and Conferences to consider for research publication:
 \begin{itemize}
