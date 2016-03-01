@@ -1,6 +1,6 @@
 \contentsline {section}{\numberline {1}Topic}{1}
 \contentsline {section}{\numberline {2}Description of Method}{2}
-\contentsline {section}{\numberline {3}Discovery Phase}{2}
+\contentsline {section}{\numberline {3}Discovery Phase}{3}
 \contentsline {subsection}{\numberline {3.1}Keywords}{3}
 \contentsline {subsection}{\numberline {3.2}Core Questions}{4}
 \contentsline {section}{\numberline {4}Synthesis}{4}
