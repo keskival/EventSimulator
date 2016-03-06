@@ -4,7 +4,7 @@
 \usepackage{amsthm, amscd, amsfonts, amssymb, graphicx,tikz, color, environ}
 
 %opening
-\title{Literature Review and Research Proposal: Simulating Flexible Assembly System Process Traces for the Purposes of Process Mining and Machine Learning – DRAFT}
+\title{Literature Review and Research Plan: Simulating Flexible Assembly System Process Traces for the Purposes of Process Mining and Machine Learning – DRAFT}
 \author{Tero Keski-Valkama}
 
 \begin{document}
@@ -105,7 +105,8 @@ The core questions about the existing literature are:
 
 Assembly systems, construction processes and business processes are often simulated using discrete event systems, for example in:
 \cite{hlupic1998business,zhao2010efficient,kang2013active,rahnama2010fuzzy}. These simulations are used for process optimization\cite{sadeghi2008framework}, scheduling and
-assembly line design. The models of these systems are conveniently described using Process algebra Petri nets (PPNs) \cite{falkman2007specification}.
+assembly line design. The models of these systems are conveniently described using Process algebra Petri nets (PPNs) \cite{falkman2007specification}. Object Petri Nets
+have been used in modelling hierarchical systems\cite{wu2015method}.
 
 The literature about faults and deviances in assembly processes mainly focus on the faults in the assembled products.
 There are less academic publications about simulating process deviances in assembly processes such as unexpected process failures, human errors, and deadlocks.
@@ -185,13 +186,37 @@ is developed to roughly reflect that kind of production run. Faults from existin
 The process traces reflecting these process deviances are represented in visual and in audial form to assert that they have features that can in principle be detected
 by automatic systems.
 
-\section {Model Verification}
+\section{Model Verification}
 
 The goal of the research project is to create a source of interesting data for modelling. To be interesting, the simulation implemented should roughly correspond to typical
 conditions, although it does not need to exactly replicate any specific existing system. The represented process traces should somehow exhibit the failure conditions
 which are not evident from explicit error codes in the logs.
 
+\section{Schedule}
+
+The first part of the research is about simulating flexible assembly systems as outlined in this document.
+An article regarding the first part of the research will be ready for publication review and is en route for publication within 2016.
+
+The second part of the research is about evaluating LSTM neural networks in anomaly detection regarding the material from the first part of the research.
+The work on the second part of the research starts with a new literature review and updated research plan. The second part of the research results in at least one published article.
+
+The third part of the research is about methods of integrating anomaly detection system in an issue management scheme, and results in at least one published article.
+
+The three parts of the research are initially scheduled to take place within 2016-2018.
+
+\section{Status}
+
+The first article draft describes the fault-free operation of the Flexible Assembly System and its simulation and related existing literature.
+FAS Simulator initial version has been published in GitHub, simulating the fault-free operation of the described Flexible Assembly System.
+Literature review has been started for the systemic process faults of the Flexible Assembly Systems.
+
 \bibliographystyle{IEEEtran}
 \bibliography{LiteratureReview}
+
+TODO:
+Commitment
+How do I convince the scientific community
+How to make the research feasible
+6-8 years.
 
 \end{document}
