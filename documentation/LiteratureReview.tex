@@ -16,7 +16,7 @@
 
 \tableofcontents
 
-\section{Topic}
+\section{Introduction}
 Flexible Assembly System is a modular and reconfigurable assembly and tooling workshop with a focus on small and medium-sized batches of varying products.
 Flexible Assembly System was described formally by Donath and Graves \cite{donath1988flexible} as a system consisting of a set of products each with a specified volume
 assembled on a workshop consisting of a fixed number of cells.
@@ -28,32 +28,22 @@ and the end products waiting to be transported out of the system.
 
 Flexible Assembly System work loads consist of small and medium sized batches where there can be some variation in the products based on customization and personalization.
 The Flexible Assembly Systems are modular and often composed out of independent modules from different suppliers. The Flexible Assembly System event trace consists
-of events received from all the separate modules of the system, and additional sensors and triggers added to the system in integration phase or later.
+of events received from all the separate modules of the system, and additional sensors and triggers added to the system in the integration phase or later.
 
 Using a Flexible Assembly System to assemble batches of products generates an electronic event trace which is logged. The events in the event trace are typically at least
 partially agnostic to the assembly process being performed, and therefore the events do not include tokens connecting the event to a specific final product instance.
+The process traces formed by logs are therefore uncorrelated.
 
-Simulating these kinds of event traces provides valuable material for learning systems which can be used to derive assembly process models and to detect deviances.
+Simulating these kinds of event traces provides valuable material for learning systems which can be used to derive implicit, behavioristic assembly process models and
+to detect deviances. Deviances which are not detected with current methods with alerts and fault codes are useful for detecting unexpected failure conditions, such as
+human errors and cyberattacks.
+
 It is in principle possible for an automatic system to detect features in the given material in an unsupervised fashion at least when a human is capable of doing so.
 A multimodal approach is convenient in data representation when we need to explore human pattern recognition capabilities. In specific, data visualization as audio
-allows a human to understand the data melodies, rhythms and possible canon-like features.
+allows a human to understand the data melodies, rhythms and possible canon-like features. This is why we will use multimodel visualization to represent the generated
+process traces.
 
-\section{Description of Method}
-
-A proper literature review is a methodological, continuous process. The goal of the literature review is to accumulate a body of relevant existing knowledge
-about the topic, categorized based on subtopics and keywords.
-Ultimately the literature review can be presented in the article in a summary form to present the context of the research.
-The collected references represent a focused area of the existing literature relevant to the object of research.
-
-The review starts from discovery, discovering information sources and starting points of review. The literature review process progresses towards synthesis
-where the relevant existing knowledge is synthesized together to form an understanding of the composite.
-
-The discovery phase includes a listing of subtopics and keywords, to structure the gathered discovered information into a manageable form. The goal
-of the discovery phase is to form questions about the existing knowledge and to find answers to them.
-
-The synthesis is composed of the description of the existing knowledge and possible gaps related to the research.
-
-\section{Discovery Phase}
+\section{Description of Domain}
 
 The topic under review is somewhat cross-discplinary relating to industrial assembly processes, business process modelling and learning systems.
 Overall the following subtopics are recognized:
@@ -101,7 +91,7 @@ The core questions about the existing literature are:
  \item What are the relevant keywords and terms to describe this problem space?
 \end{enumerate}
 
-\section{Synthesis}
+\section{Literature Review}
 
 Assembly systems, construction processes and business processes are often simulated using discrete event systems, for example in:
 \cite{hlupic1998business,zhao2010efficient,kang2013active,rahnama2010fuzzy}. These simulations are used for process optimization\cite{sadeghi2008framework}, scheduling and
@@ -162,37 +152,45 @@ Creating new types of process mining and learning systems for anomaly detection 
 A simulated model of a Flexible Assembly System is required to generate appropriate event streams and to simulate failure modes. These kinds of simulations
 do not exist at the moment in academic literature. While process deviances in assembly systems are described in the literature, there are no simulations of such.
 Even when simulations are used as a basis of creating industrial anomaly detection systems, such simulations and real plant data are not published\cite{matarese2013procedure}.
-This makes it difficult to compare methods and reproduce research results.
+This makes it difficult to compare methods against common benchmarks and reproduce research results.
 
 The generated process traces are interleaved and the events are uncorrelated. Finding good methods for process mining such data is an open research problem.
 
-This research aims to create a process level discrete event simulation of a Flexible Assembly System capable of representing correct operation and different failure modes.
-The generated process traces are visualized to show their general form to direct selection of data representation for learning systems and statistical analysis.
-
 \section{Concept}
+
+This research aims to create a process level discrete event simulation of a Flexible Assembly System capable of representing correct operation and different failure modes.
 
 A discrete event simulation is created to model the behavior of a representative Flexible Assembly System. The symbolic event streams are generated and visualized in different ways
 to evaluate the potential for applying different methods to such data. Special attention is given to the possibility of extracting interleaved process traces out of such data.
 If a human is capable of seeing or hearing the interleaved patterns in the data, then it should in principle be possible for automatic systems also.
 
+The generated process traces are visualized to show their general form to direct selection of data representation for learning systems and statistical analysis.
+
 \section{Research Methodology}
 
-The research is mostly about literature review of Flexible Assembly System modelling and simulation, and of relevant failure modes.
+The research consists of a literature review of Flexible Assembly System modelling and simulation, and of relevant failure modes.
+A simulator is implemented and the resulting data is investigated for interesting properties using visualization methods.
 Different kinds of batches and operating conditions are used, and resultant process traces are represented to show general characteristics of such production runs and failures.
 
 \section{Model Development}
 
-The model of the system is loosely based on a Youtube video\cite{transmission} of a real Flexible Assembly System in Chrysler transmission assembly line.
+The initial model of the system under simulation is loosely based on a Youtube video\cite{transmission} of a real Flexible Assembly System in Chrysler transmission assembly line.
 The work steps are catalogued and timed, and a discrete event simulation
-is developed to roughly reflect that kind of production run. Faults from existing literature are added to the simulation to produce process deviances.
+is developed to roughly reflect that kind of production run. The system is described using process algebra Petri nets.
+Faults from existing literature are added to the simulation to produce process deviances.
 The process traces reflecting these process deviances are represented in visual and in audial form to assert that they have features that can in principle be detected
 by automatic systems.
 
 \section{Model Verification}
 
 The goal of the research project is to create a source of interesting data for modelling. To be interesting, the simulation implemented should roughly correspond to typical
-conditions, although it does not need to exactly replicate any specific existing system. The represented process traces should somehow exhibit the failure conditions
-which are not evident from explicit error codes in the logs.
+conditions, although it does not need to exactly replicate any specific existing system. The simulation should be easily configurable to represent an arbitrary existing system
+of arbitrary complexity.
+
+The represented process traces should somehow exhibit the failure conditions
+which are not evident from explicit error codes in the logs. The process traces should be interleaved and uncorrelated.
+
+The visualized process traces are inspected for features possibly detectable by a human, to identify potential targets for automatic methods.
 
 \section{Schedule}
 
@@ -204,7 +202,7 @@ The work on the second part of the research starts with a new literature review 
 
 The third part of the research is about methods of integrating anomaly detection system in an issue management scheme, and results in at least one published article.
 
-The three parts of the research are initially scheduled to take place within 2016-2018.
+The three parts of the research are initially scheduled to take place within 2016-2018.\cite{kuha}
 
 \section{Status}
 
@@ -214,11 +212,5 @@ Literature review has been started for the systemic process faults of the Flexib
 
 \bibliographystyle{IEEEtran}
 \bibliography{LiteratureReview}
-
-TODO:
-Commitment
-How do I convince the scientific community
-How to make the research feasible
-6-8 years.
 
 \end{document}
