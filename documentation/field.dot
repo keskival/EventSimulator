@@ -1,22 +1,28 @@
 graph G {
-  graph [rankdir=LR];
-  {rank=min "Flexible Assembly System Modelling and Simulation"} -- {rank=same "Flexible Assembly System Fault Modelling", "Parallel Process Logs"}
-  "Flexible Assembly System Fault Modelling" -- "Flexible Assembly System Fault Prediction"
-  "Flexible Assembly System Fault Prediction" -- "Fault Prediction"
-  "Fault Prediction" -- {rank=same "Continual Prediction", "Activity Recognition", "Failure Modes"}
-  "Parallel Process Logs" -- {rank=same "Uncolored Stochastic Petri Nets", "Kalman Filters", "Process Mining", "Stochastic Interleaved Temporal Sequence Visualization", "Support Vector Machine Classifier"}
-  "Uncolored Stochastic Petri Nets" -- "Shuffled Regular Languages"
-  "Failure Modes" -- {rank=same "Mechanical Failure Modes", "Process Failures", "Failure Mode and Effect Analysis (FMEA)"}
-  "Activity Recognition" -- "Weighted Unranked Tree Automata"
+  graph [rankdir=UD];
+  node[fontsize=20]
+  "Shuffled Regular Languages" -- "Stochastic Interleaved Temporal\nSequence Visualization" [style=invis]
+  "Uncorrelated Process Traces" -- {"Stochastic Interleaved Temporal\nSequence Visualization"}
+  "Stochastic Interleaved Temporal\nSequence Visualization" -- {rank=same "Outflow Visualization", "Time-Domain Visualization", "Sequence Visualization"}
+
+  "Causal Reasoning" -- "Uncolored Stochastic\nPetri Nets" [style=invis]
+  "Uncorrelated Process Traces" -- "Uncolored Stochastic\nPetri Nets"
+
+  "Process Failures" -- "Uncorrelated Process Traces" [style=invis]
+  {rank=min "Flexible Assembly System\nModelling and Simulation"} -- {"Uncorrelated Process Traces"}
+  "Uncorrelated Process Traces" -- {rank=same "Kalman Filters", "Process Mining", "Support Vector Machine Classifier"}
+  "Uncolored Stochastic\nPetri Nets" -- "Shuffled Regular Languages"
   "Process Mining" -- "Causal Reasoning"
-  "Continual Prediction" -- "Long Short-Term Memory (LSTM)"
-  "Mechanical Failure Modes" -- "Compliant Parts"
-  "Mechanical Failure Modes" -- "Dimensional Quality"
-  "Mechanical Failure Modes" -- "Variation Propagation"
-  "Mechanical Failure Modes" -- "Fixture Variation"
-  "Mechanical Failure Modes" -- "Part Variation"
-  "Mechanical Failure Modes" -- "Leaf Spring"
-  "Mechanical Failure Modes" -- "Welding Gun Variation"
-  "Stochastic Interleaved Temporal Sequence Visualization" -- {rank=same "Outflow Visualization", "Time-Domain Visualization", "Sequence Visualization"}
+
+  "Weighted Unranked\nTree Automata" -- "Failure Modes" [style=invis]
+  "Fault Prediction" -- {"Failure Modes"}
+  "Failure Modes" -- {rank=same "Process Failures", "Failure Mode and Effect Analysis\n(FMEA)"}
+
+  {rank=min "Flexible Assembly System\nModelling and Simulation"} -- {"Flexible Assembly System\nFault Modelling"}
+  "Flexible Assembly System\nFault Modelling" -- "Flexible Assembly System\nFault Prediction"
+  "Flexible Assembly System\nFault Prediction" -- "Fault Prediction"
+  "Fault Prediction" -- {rank=same "Continual Prediction", "Activity Recognition"}
+  "Activity Recognition" -- "Weighted Unranked\nTree Automata"
+  "Continual Prediction" -- "Long Short-Term Memory\n(LSTM)"
 }
 # Compile with: dot < field.dot  -Tpng > field.png

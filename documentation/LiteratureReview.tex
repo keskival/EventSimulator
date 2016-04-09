@@ -149,8 +149,13 @@ Data representation as audio (Sonification \cite{refKra}) has been investigated 
 \section{Problem Statement}
 
 Creating new types of process mining and learning systems for anomaly detection in Flexible Assembly Systems requires data in the form of process traces.
+There is not enough publicly available data from real Flexible Assembly Systems, and it is challenging to gather a representative corpus of real process logs with anomalies.
+The nature of anomalious traces is such that a certain kind of anomaly rarely reoccurs. Each anomalous event is unique and unexpected. This means
+that in real process traces a specific kind of anomaly correlates strongly with the preceding trace, as it is an unique event that has never occurred in other contexts.
+This make such data not representative in respect to anomalies. It is not feasible to train and validate learning systems against a dataset with only a few non-recurring anomalies.
+
 A simulated model of a Flexible Assembly System is required to generate appropriate event streams and to simulate failure modes. These kinds of simulations
-do not exist at the moment in academic literature. While process deviances in assembly systems are described in the literature, there are no simulations of such.
+do not exist at the moment in academic literature. While process deviances in assembly systems are described in the literature, there are no published simulations of such.
 Even when simulations are used as a basis of creating industrial anomaly detection systems, such simulations and real plant data are not published\cite{matarese2013procedure}.
 This makes it difficult to compare methods against common benchmarks and reproduce research results.
 
