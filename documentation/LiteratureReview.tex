@@ -95,7 +95,7 @@ The core questions about the existing literature are:
 
 Assembly systems, construction processes and business processes are often simulated using discrete event systems, for example in:
 \cite{hlupic1998business,zhao2010efficient,kang2013active,rahnama2010fuzzy}. These simulations are used for process optimization\cite{sadeghi2008framework}, scheduling and
-assembly line design. The models of these systems are conveniently described using Process algebra Petri nets (PPNs) \cite{falkman2007specification}. Object Petri Nets
+assembly line design. The models of these systems are conveniently described using Process algebra Petri Nets (PPNs) \cite{falkman2007specification}. Object Petri Nets
 have been used in modelling hierarchical systems\cite{wu2015method}. For a lower abstraction level simulation IEC 61499 function block models\cite{tc652004wg6} have been used
 for example in \cite{rooker2008modeling}.
 
@@ -149,7 +149,7 @@ Data representation as audio (Sonification \cite{refKra}) has been investigated 
 \section{Problem Statement}
 
 Creating new types of process mining and learning systems for anomaly detection in Flexible Assembly Systems requires data in the form of process traces.
-There is not enough publicly available data from real Flexible Assembly Systems, and it is challenging to gather a representative corpus of real process logs with anomalies.
+There is not enough publicly available data collected from real Flexible Assembly Systems, and it is challenging to gather a representative corpus of real process logs with anomalies.
 The nature of anomalious traces is such that a certain kind of anomaly rarely reoccurs. Each anomalous event is unique and unexpected. This means
 that in real process traces a specific kind of anomaly correlates strongly with the preceding trace, as it is an unique event that has never occurred in other contexts.
 This make such data not representative in respect to anomalies. It is not feasible to train and validate learning systems against a dataset with only a few non-recurring anomalies.
@@ -161,43 +161,42 @@ This makes it difficult to compare methods against common benchmarks and reprodu
 
 The generated process traces are interleaved and the events are uncorrelated. Finding good methods for process mining such data is an open research problem.
 
-\section{Concept}
+\section{Concept and Methodology}
 
 This research aims to create a process level discrete event simulation of a Flexible Assembly System capable of representing correct operation and different failure modes.
+The research consists of a literature review of Flexible Assembly System modelling and simulation, and of relevant failure modes.
 
-A discrete event simulation is created to model the behavior of a representative Flexible Assembly System. The symbolic event streams are generated and visualized in different ways
+A discrete event simulation is created to model the behavior of a representative Flexible Assembly System. The simulator supports defining system under simulation using
+a Process algebra Petri Net (PPN) notation.
+The symbolic event streams are generated and visualized in different ways
 to evaluate the potential for applying different methods to such data. Special attention is given to the possibility of extracting interleaved process traces out of such data.
 If a human is capable of seeing or hearing the interleaved patterns in the data, then it should in principle be possible for automatic systems also.
 
 The generated process traces are visualized to show their general form to direct selection of data representation for learning systems and statistical analysis.
 
-\section{Research Methodology}
-
-The research consists of a literature review of Flexible Assembly System modelling and simulation, and of relevant failure modes.
-A simulator is implemented and the resulting data is investigated for interesting properties using visualization methods.
-Different kinds of batches and operating conditions are used, and resultant process traces are represented to show general characteristics of such production runs and failures.
-
-\section{Model Development}
+Different kinds of batches and operating conditions are used, and resultant process traces are visualized to show general characteristics of such production runs and failures.
 
 The initial model of the system under simulation is loosely based on a Youtube video\cite{transmission} of a real Flexible Assembly System in Chrysler transmission assembly line.
 The work steps are catalogued and timed, and a discrete event simulation
-is developed to roughly reflect that kind of production run. The system is described using process algebra Petri nets.
+is developed to roughly reflect that kind of production setting. The system is described and configured into the simulator using a Process algebra Petri Net.
 Faults from existing literature are added to the simulation to produce process deviances.
+
 The process traces reflecting these process deviances are represented in visual and in audial form to assert that they have features that can in principle be detected
 by automatic systems.
 
 \section{Model Verification}
 
-The goal of the research project is to create a source of interesting data for modelling. To be interesting, the simulation implemented should roughly correspond to typical
+The goal of the first phase of the research project is to create a source of interesting data for modelling and analysis.
+To be interesting, the simulation implemented should roughly correspond to typical
 conditions, although it does not need to exactly replicate any specific existing system. The simulation should be easily configurable to represent an arbitrary existing system
 of arbitrary complexity.
 
 The represented process traces should somehow exhibit the failure conditions
-which are not evident from explicit error codes in the logs. The process traces should be interleaved and uncorrelated.
+which would not be evident from explicit error codes in the logs. The process traces should be interleaved and uncorrelated, as they are so in the real systems.
 
 The visualized process traces are inspected for features possibly detectable by a human, to identify potential targets for automatic methods.
 
-\section{Schedule}
+\section{Schedule and Status}
 
 The first part of the research is about simulating flexible assembly systems as outlined in this document.
 An article regarding the first part of the research will be ready for publication review and is en route for publication within 2016.
@@ -208,8 +207,6 @@ The work on the second part of the research starts with a new literature review 
 The third part of the research is about methods of integrating anomaly detection system in an issue management scheme, and results in at least one published article.
 
 The three parts of the research are initially scheduled to take place within 2016-2018.\cite{kuha}
-
-\section{Status}
 
 The first article draft describes the fault-free operation of the Flexible Assembly System and its simulation and related existing literature.
 FAS Simulator initial version has been published in GitHub, simulating the fault-free operation of the described Flexible Assembly System.
